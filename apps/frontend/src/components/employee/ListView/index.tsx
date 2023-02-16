@@ -10,7 +10,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useRouter } from "next/router";
 
-const ListView = () => {
+interface ListViewProps {
+  onDelete: (id: string) => void;
+}
+
+const ListView = (props: ListViewProps) => {
+  const { onDelete } = props;
   const router = useRouter();
   const handleEdit = (id: string) => router.push(`/employee/edit/${id}`);
 
@@ -42,7 +47,7 @@ const ListView = () => {
               <IconButton onClick={() => handleEdit("id")}>
                 <EditIcon />
               </IconButton>
-              <IconButton color="error">
+              <IconButton color="error" onClick={() => onDelete("1")}>
                 <DeleteIcon />
               </IconButton>
             </TableCell>

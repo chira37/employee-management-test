@@ -8,10 +8,17 @@ import EditIcon from "@mui/icons-material/Edit";
 
 import { CardActions } from "./styled";
 import { Grid } from "@mui/material";
-export default function ImgMediaCard() {
+
+interface GridItemProps {
+  onDelete: (id: string) => void;
+  onEdit: (id: string) => void;
+}
+
+const GridItem = (props: GridItemProps) => {
+  const { onDelete, onEdit } = props;
   return (
-    <Grid item xs={3}>
-      <Card >
+    <Grid item xs={6} sm={4} md={3}>
+      <Card>
         <CardMedia
           component="img"
           alt="green iguana"
@@ -31,14 +38,16 @@ export default function ImgMediaCard() {
           </Typography>
         </CardContent>
         <CardActions>
-          <IconButton>
+          <IconButton onClick={() => onDelete("1")}>
             <DeleteIcon />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={() => onEdit("1")}>
             <EditIcon />
           </IconButton>
         </CardActions>
       </Card>
     </Grid>
   );
-}
+};
+
+export default GridItem;

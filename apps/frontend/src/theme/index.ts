@@ -25,7 +25,7 @@ const theme = createTheme({
     fontFamily: poppins.style.fontFamily,
   },
   shape: {
-    borderRadius: 12,
+    borderRadius: 10,
   },
 
   components: {

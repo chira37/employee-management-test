@@ -6,10 +6,11 @@ import Typography from "@mui/material/Typography";
 
 interface LayoutProps {
   children: ReactNode;
+  maxWidth?: "xs" | "sm" | "md" | "lg";
 }
 
 const Layout = (props: LayoutProps) => {
-  const { children } = props;
+  const { children, maxWidth = "md" } = props;
   return (
     <div>
       <AppBar position="static">
@@ -17,7 +18,7 @@ const Layout = (props: LayoutProps) => {
           <Typography variant="h6">Employee Manager</Typography>
         </Toolbar>
       </AppBar>
-      <Container>{children}</Container>
+      <Container maxWidth={maxWidth}>{children}</Container>
     </div>
   );
 };

@@ -1,8 +1,12 @@
 import Layout from "src/components/common/Layout";
-import Employees from "@components/employee/Employees";
+import EditEmployee from "@components/employee/EditEmployee";
 
 const Edit = () => {
-  return <Layout>edit</Layout>;
+  return (
+    <Layout maxWidth="sm">
+      <EditEmployee />
+    </Layout>
+  );
 };
 
 export default Edit;
