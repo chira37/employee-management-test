@@ -9,6 +9,8 @@ import { employeeSchema } from "./schema";
 import { FormaLabel, Row } from "./styled";
 import { Select } from "@components/common/Select";
 import { MenuItem } from "@mui/material";
+import apiClient from "src/services/apiClient";
+import { useRouter } from "next/router";
 
 interface EmployeeFormProps {
   edit?: boolean;
@@ -17,11 +19,21 @@ interface EmployeeFormProps {
 
 const EmployeeForm = (props: EmployeeFormProps) => {
   const { edit, initialValues } = props;
+
+  const router = useRouter();
   const { control, handleSubmit } = useForm({ defaultValues: initialValues, resolver: yupResolver(employeeSchema) });
 
   const [loading, setLoading] = useState(false);
 
-  const submit = handleSubmit(() => {});
+  const submit = handleSubmit(async (data) => {
+    setLoading(true);
+    const response = await apiClient("post", "/employee", data);
+    if (response.success) {
+      router.push("/employee/list");
+    } else {
+    }
+    setLoading(false);
+  });
 
   return (
     <>

@@ -1,13 +1,14 @@
 import axios from "axios";
-const apiClient = async (method: string, url: string) => {
+const apiClient = async (method: string, url: string, data?: any) => {
   try {
     const result = await axios({
       method,
       url,
-      baseURL: "http://localhost:8080/api/v1/admin/",
+      baseURL: "http://localhost:8080/api",
       headers: {
         "Content-Type": "application/json",
       },
+      data,
     });
     return { ...result.data, success: true };
   } catch (error) {

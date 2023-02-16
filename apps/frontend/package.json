@@ -1,6 +1,6 @@
 {
-  "name": "nextjs-with-typescript",
-  "version": "5.0.0",
+  "name": "frontend-app",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -23,6 +23,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-hook-form": "^7.43.1",
+    "react-redux": "^8.0.5",
     "yup": "^1.0.0"
   },
   "devDependencies": {
