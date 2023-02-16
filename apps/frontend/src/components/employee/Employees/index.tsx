@@ -6,13 +6,14 @@ import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import GridView from "../GridView";
 import { Header, ToggleButton } from "./styled";
 import { useRouter } from "next/router";
+import ListView from "../ListView";
 const Employees = () => {
   const [listView, setListView] = useState(false);
 
   const router = useRouter();
 
   const toggleListView = () => setListView(!listView);
-  const handleAddEmployee = () => router.push("/employee/new");
+  const handleAddEmployee = () => router.push("/employee/add");
 
   return (
     <div>
@@ -20,9 +21,7 @@ const Employees = () => {
         <Button onClick={handleAddEmployee}>Add Employee</Button>
         <ToggleButton onClick={toggleListView}>{listView ? <ViewListIcon /> : <ViewModuleIcon />}</ToggleButton>
       </Header>
-      <div>
-        <GridView />
-      </div>
+      <div>{listView ? <ListView /> : <GridView />}</div>
     </div>
   );
 };
