@@ -1,39 +1,19 @@
 import Button from "@components/common/Button";
 import Box from "@mui/material/Box";
 import { Input } from "@components/common/Input";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Employee } from "src/types/employee";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { employeeSchema } from "./schema";
 import { FormaLabel, Row } from "./styled";
 import { Select } from "@components/common/Select";
 import { MenuItem } from "@mui/material";
-import apiClient from "src/services/apiClient";
-import { useRouter } from "next/router";
+import { useEmployee } from "./useEmployee";
 
 interface EmployeeFormProps {
   edit?: boolean;
-  initialValues?: Employee;
 }
 
 const EmployeeForm = (props: EmployeeFormProps) => {
-  const { edit, initialValues } = props;
+  const { edit = false } = props;
 
-  const router = useRouter();
-  const { control, handleSubmit } = useForm({ defaultValues: initialValues, resolver: yupResolver(employeeSchema) });
-
-  const [loading, setLoading] = useState(false);
-
-  const submit = handleSubmit(async (data) => {
-    setLoading(true);
-    const response = await apiClient("post", "/employee", data);
-    if (response.success) {
-      router.push("/employee/list");
-    } else {
-    }
-    setLoading(false);
-  });
+  const { control, loading, submit } = useEmployee(edit);
 
   return (
     <>

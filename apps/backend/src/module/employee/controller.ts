@@ -20,8 +20,8 @@ const getEmployee = controllerHandler(async (req: Request, res: Response) => {
 });
 
 const getEmployeesWithPagination = controllerHandler(async (req: Request, res: Response) => {
-  const employee = await employeeService.getEmployeesWithPagination(req.query);
-  createResponse(res, "Get employees success", employee);
+  const employees = await employeeService.getEmployeesWithPagination(req.query);
+  createResponse(res, "Get employees success", employees);
 });
 
 const deleteEmployee = controllerHandler(async (req: Request, res: Response) => {

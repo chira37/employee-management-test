@@ -19,6 +19,7 @@ const updateEmployee = async (id: string, employeeBody: Employee) => {
 const getEmployeeById = async (id: string) => {
   const employee = await EmployeeModel.findById(id);
   if (!employee) throw new ApiError("Employee not found", httpStatus.NOT_FOUND, null);
+  return employee;
 };
 
 const getEmployeesWithPagination = async (query: any) => {
@@ -28,7 +29,12 @@ const getEmployeesWithPagination = async (query: any) => {
     limit,
     sort: getSort(sort),
   };
-  return await EmployeeModel.paginate({}, options);
+  const { docs, totalPages, page: currentPage } = await EmployeeModel.paginate({}, options);
+
+  return {
+    employees: docs,
+    pagination: { page: currentPage, totalPages },
+  };
 };
 
 const deleteEmployee = async (id: string) => {

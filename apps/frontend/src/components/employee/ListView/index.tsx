@@ -9,13 +9,15 @@ import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useRouter } from "next/router";
+import { Employee } from "src/types/employee";
 
 interface ListViewProps {
+  employees: Employee[];
   onDelete: (id: string) => void;
 }
 
 const ListView = (props: ListViewProps) => {
-  const { onDelete } = props;
+  const { employees, onDelete } = props;
   const router = useRouter();
   const handleEdit = (id: string) => router.push(`/employee/edit/${id}`);
 
@@ -25,33 +27,35 @@ const ListView = (props: ListViewProps) => {
         <TableHead>
           <TableRow>
             <TableCell>Image</TableCell>
-            <TableCell align="right">First Name</TableCell>
-            <TableCell align="right">Last Name</TableCell>
-            <TableCell align="right">Email</TableCell>
-            <TableCell align="right">Phone</TableCell>
-            <TableCell align="right">Gender</TableCell>
+            <TableCell align="left">First Name</TableCell>
+            <TableCell align="left">Last Name</TableCell>
+            <TableCell align="left">Email</TableCell>
+            <TableCell align="left">Phone</TableCell>
+            <TableCell align="left">Gender</TableCell>
             <TableCell align="right"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-            <TableCell component="th" scope="row">
-              image
-            </TableCell>
-            <TableCell align="right">name</TableCell>
-            <TableCell align="right">name</TableCell>
-            <TableCell align="right">test@gmail.con</TableCell>
-            <TableCell align="right">12345678</TableCell>
-            <TableCell align="right">male</TableCell>
-            <TableCell align="right">
-              <IconButton onClick={() => handleEdit("id")}>
-                <EditIcon />
-              </IconButton>
-              <IconButton color="error" onClick={() => onDelete("1")}>
-                <DeleteIcon />
-              </IconButton>
-            </TableCell>
-          </TableRow>
+          {employees.map((employee) => (
+            <TableRow key={employee._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+              <TableCell component="th" scope="row">
+                image
+              </TableCell>
+              <TableCell align="left">{employee.firstName}</TableCell>
+              <TableCell align="left">{employee.lastName}</TableCell>
+              <TableCell align="left">{employee.email}</TableCell>
+              <TableCell align="left">{employee.phone}</TableCell>
+              <TableCell align="left"> {employee.gender === "m" ? "Male" : "Female"}</TableCell>
+              <TableCell align="right">
+                <IconButton onClick={() => handleEdit(employee._id)}>
+                  <EditIcon />
+                </IconButton>
+                <IconButton color="error" onClick={() => onDelete(employee._id)}>
+                  <DeleteIcon />
+                </IconButton>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>

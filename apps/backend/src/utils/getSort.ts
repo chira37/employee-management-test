@@ -1,1 +1,1 @@
-export const getSort = (sort: string) => sort.split(",").join(" ");
+export const getSort = (sort: string) => sort?.split(",").join(" ");

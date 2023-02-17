@@ -8,14 +8,16 @@ import EditIcon from "@mui/icons-material/Edit";
 
 import { CardActions } from "./styled";
 import { Grid } from "@mui/material";
+import { Employee } from "src/types/employee";
 
 interface GridItemProps {
+  employee: Employee;
   onDelete: (id: string) => void;
   onEdit: (id: string) => void;
 }
 
 const GridItem = (props: GridItemProps) => {
-  const { onDelete, onEdit } = props;
+  const { employee, onDelete, onEdit } = props;
   return (
     <Grid item xs={6} sm={4} md={3}>
       <Card>
@@ -26,22 +28,24 @@ const GridItem = (props: GridItemProps) => {
           image="https://randomuser.me/api/portraits/men/85.jpg"
         />
         <CardContent>
-          <Typography variant="body1">Test name</Typography>
-          <Typography variant="body2" color="text.secondary">
-            test@gmail.com
+          <Typography variant="body1">
+            {employee.firstName} {employee.lastName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            +94774682747
+            {employee.email}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Male
+            {employee.phone}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {employee.gender === "m" ? "Male" : "Female"}
           </Typography>
         </CardContent>
         <CardActions>
-          <IconButton onClick={() => onDelete("1")}>
+          <IconButton onClick={() => onDelete(employee._id)}>
             <DeleteIcon />
           </IconButton>
-          <IconButton onClick={() => onEdit("1")}>
+          <IconButton onClick={() => onEdit(employee._id)}>
             <EditIcon />
           </IconButton>
         </CardActions>
