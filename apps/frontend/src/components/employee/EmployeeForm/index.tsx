@@ -1,8 +1,8 @@
 import Button from "@components/common/Button";
 import Box from "@mui/material/Box";
-import { Input } from "@components/common/Input";
+import Input from "@components/common/Input";
 import { FormaLabel, Row } from "./styled";
-import { Select } from "@components/common/Select";
+import Select from "@components/common/Select";
 import { MenuItem } from "@mui/material";
 import { useEmployee } from "./useEmployee";
 
@@ -35,7 +35,7 @@ const EmployeeForm = (props: EmployeeFormProps) => {
       </Row>
       <Row>
         <FormaLabel>Gender</FormaLabel>
-        <Select name="gender" control={control}>
+        <Select name="gender" control={control} size="small">
           <MenuItem value="m">Male</MenuItem>
           <MenuItem value="f">Female</MenuItem>
         </Select>

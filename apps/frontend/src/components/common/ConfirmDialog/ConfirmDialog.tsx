@@ -23,10 +23,16 @@ interface ConfirmDialogProps {
   open: boolean;
   onConfirm: () => void;
   onCancel: () => void;
+  onClose: () => void;
 }
 
 const ConfirmDialog = (props: ConfirmDialogProps) => {
-  const { loading, title, description, open, onConfirm, onCancel } = props;
+  const { loading, title, description, open, onConfirm, onCancel, onClose } = props;
+
+  const handleDelete = () => {
+    onConfirm();
+    onClose();
+  };
 
   return (
     <Dialog open={open} TransitionComponent={Transition} PaperProps={{ sx: { minWidth: 300 } }}>
@@ -38,7 +44,7 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
         <Button onClick={onCancel} fullWidth variant="outlined">
           Cancel
         </Button>
-        <Button onClick={onConfirm} fullWidth loading={loading}>
+        <Button onClick={handleDelete} fullWidth loading={loading}>
           Confirm
         </Button>
       </ActionContainer>

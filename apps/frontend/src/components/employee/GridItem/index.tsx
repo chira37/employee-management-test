@@ -23,9 +23,14 @@ const GridItem = (props: GridItemProps) => {
       <Card>
         <CardMedia
           component="img"
-          alt="green iguana"
-          height="140"
-          image="https://randomuser.me/api/portraits/men/85.jpg"
+          alt="profile"
+          height="160"
+          image={
+            employee.photo ||
+            (employee.gender === "m"
+              ? "https://st3.depositphotos.com/9998432/13335/v/1600/depositphotos_133352010-stock-illustration-default-placeholder-man-and-woman.jpg"
+              : "https://st4.depositphotos.com/9998432/27431/v/1600/depositphotos_274313380-stock-illustration-person-gray-photo-placeholder-woman.jpg")
+          }
         />
         <CardContent>
           <Typography variant="body1">

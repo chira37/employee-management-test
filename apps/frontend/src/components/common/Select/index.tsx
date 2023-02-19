@@ -3,13 +3,13 @@ import TextField, { OutlinedTextFieldProps } from "@mui/material/TextField";
 
 import { Controller, Control } from "react-hook-form";
 
-interface SelectProps extends Omit<OutlinedTextFieldProps, "variant"> {
+export interface SelectProps extends Omit<OutlinedTextFieldProps, "variant"> {
   children: ReactNode;
   name: string;
   control?: Control<any>;
 }
 
-export const Select = (props: SelectProps) => {
+const Select = (props: SelectProps) => {
   const { children, name, title, control, ...rest } = props;
 
   return (
@@ -17,10 +17,21 @@ export const Select = (props: SelectProps) => {
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => (
-        <TextField select size="small" {...field} fullWidth error={!!error} helperText={error?.message} {...rest}>
+        <TextField
+          select
+          {...field}
+          fullWidth
+          error={!!error}
+          helperText={error?.message}
+          data-testid={name}
+          {...rest}
+          size="small"
+        >
           {children}
         </TextField>
       )}
     />
   );
 };
+
+export default Select;

@@ -4,6 +4,7 @@ import { Employee } from "./type";
 import EmployeeModel from "./models/employee";
 import ApiError from "../../utils/ApiError";
 import { getSort } from "../../utils/getSort";
+import { getFilter } from "./helpers";
 
 const addEmployee = async (employeeBody: Employee) => {
   const employee = new EmployeeModel(employeeBody);
@@ -29,7 +30,10 @@ const getEmployeesWithPagination = async (query: any) => {
     limit,
     sort: getSort(sort),
   };
-  const { docs, totalPages, page: currentPage } = await EmployeeModel.paginate({}, options);
+  const filter = getFilter(query);
+  console.log(filter);
+  
+  const { docs, totalPages, page: currentPage } = await EmployeeModel.paginate(filter, options);
 
   return {
     employees: docs,

@@ -5,4 +5,5 @@ export type Employee = {
   email: string;
   phone: string;
   gender: "m" | "f" | string;
+  photo?: string;
 };

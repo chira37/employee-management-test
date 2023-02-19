@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+
 import Pagination from "@mui/material/Pagination";
 import Button from "@components/common/Button";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
+import Stack from "@mui/material/Stack";
+
 import ConfirmDialog from "@components/common/ConfirmDialog";
 import GridView from "../GridView";
 import ListView from "../ListView";
-import { Footer, Header, ToggleButton } from "./styled";
 import { useEmployees } from "./useEmployees";
 import Filter from "../Filter";
-import { Stack } from "@mui/material";
-import Sort from "../Sort";
+import { Footer, Header, ToggleButton } from "./styled";
+
 const Employees = () => {
   const [listView, setListView] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -26,10 +28,7 @@ const Employees = () => {
   return (
     <div>
       <Header>
-        <Stack direction="row" spacing={2}>
-          <Filter />
-          <Sort />
-        </Stack>
+        <Filter />
         <Stack direction="row">
           <Button onClick={handleAddEmployee}>Add Employee</Button>
           <ToggleButton onClick={toggleListView}>{listView ? <ViewListIcon /> : <ViewModuleIcon />}</ToggleButton>
@@ -41,6 +40,7 @@ const Employees = () => {
         description="Are you sure you want to delete this employee?"
         onCancel={() => setDeleteId(null)}
         onConfirm={() => handleDeleteEmployee(deleteId)}
+        onClose={() => setDeleteId(null)}
       />
       <div>
         {listView ? (

@@ -13,7 +13,7 @@ const Layout = (props: LayoutProps) => {
   const { children, maxWidth = "md" } = props;
   return (
     <div>
-      <AppBar position="static">
+      <AppBar position="sticky" elevation={0}>
         <Toolbar>
           <Typography variant="h6">Employee Manager</Typography>
         </Toolbar>

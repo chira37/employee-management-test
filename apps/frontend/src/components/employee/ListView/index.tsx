@@ -5,7 +5,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { IconButton } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useRouter } from "next/router";
@@ -27,8 +28,8 @@ const ListView = (props: ListViewProps) => {
         <TableHead>
           <TableRow>
             <TableCell>Image</TableCell>
-            <TableCell align="left">First Name</TableCell>
-            <TableCell align="left">Last Name</TableCell>
+            <TableCell align="left">First&nbsp;Name</TableCell>
+            <TableCell align="left">Last&nbsp;Name</TableCell>
             <TableCell align="left">Email</TableCell>
             <TableCell align="left">Phone</TableCell>
             <TableCell align="left">Gender</TableCell>
@@ -39,7 +40,14 @@ const ListView = (props: ListViewProps) => {
           {employees.map((employee) => (
             <TableRow key={employee._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
               <TableCell component="th" scope="row">
-                image
+                <Avatar
+                  src={
+                    employee.photo ||
+                    (employee.gender === "m"
+                      ? "https://st3.depositphotos.com/9998432/13335/v/1600/depositphotos_133352010-stock-illustration-default-placeholder-man-and-woman.jpg"
+                      : "https://st4.depositphotos.com/9998432/27431/v/1600/depositphotos_274313380-stock-illustration-person-gray-photo-placeholder-woman.jpg")
+                  }
+                />
               </TableCell>
               <TableCell align="left">{employee.firstName}</TableCell>
               <TableCell align="left">{employee.lastName}</TableCell>
@@ -48,10 +56,10 @@ const ListView = (props: ListViewProps) => {
               <TableCell align="left"> {employee.gender === "m" ? "Male" : "Female"}</TableCell>
               <TableCell align="right">
                 <IconButton onClick={() => handleEdit(employee._id)}>
-                  <EditIcon />
+                  <EditIcon fontSize="small" />
                 </IconButton>
                 <IconButton color="error" onClick={() => onDelete(employee._id)}>
-                  <DeleteIcon />
+                  <DeleteIcon fontSize="small" />
                 </IconButton>
               </TableCell>
             </TableRow>

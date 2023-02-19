@@ -1,97 +1,98 @@
-import * as React from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import Popover from "@mui/material/Popover";
 import Button from "@mui/material/Button";
-import { Input } from "@components/common/Input";
-import { useForm } from "react-hook-form";
-import { Label, Row } from "./styled";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import Input from "@components/common/Input";
 import MenuItem from "@mui/material/MenuItem";
-import { Select } from "@components/common/Select";
+import Stack from "@mui/material/Stack";
+import Select from "@components/common/Select";
 import { useAppDispatch } from "@redux/store";
 import { resetFilter, setFilter } from "@redux/slices/employeeSlice";
-import { Box, Stack } from "@mui/material";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
-const Filter = () => {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+import { Employee } from "src/types/employee";
+import { Container, Label, Row } from "./styled";
 
+const Filter = () => {
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const dispatch = useAppDispatch();
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handleOpen = (e: React.MouseEvent<HTMLButtonElement>) => setAnchorEl(e.currentTarget);
+  const handleClose = () => setAnchorEl(null);
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const { control, handleSubmit, reset } = useForm();
-
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const { control, handleSubmit, reset } = useForm<Employee>({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      gender: "",
+    },
+  });
 
   const submit = handleSubmit((data) => {
     dispatch(setFilter(data));
+    handleClose();
   });
 
   const handleReset = () => {
-    reset();
+    reset({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      gender: "",
+    });
     dispatch(resetFilter());
+    handleClose();
   };
 
   return (
     <div>
-      <Button onClick={handleClick} size="small" startIcon={<FilterAltIcon />}>
+      <Button onClick={handleOpen} size="small" startIcon={<FilterAltIcon />}>
         Filter
       </Button>
       <Popover
-        id={id}
-        open={open}
+        id={"sort"}
+        open={!!anchorEl}
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "left",
         }}
+        transitionDuration={100}
       >
-        <Card>
-          <CardContent>
-            <Stack spacing={1}>
-              <Row>
-                <Label variant="caption">First Name</Label>
-                <Input margin="dense" name="firstName" control={control} size="small" />
-              </Row>
-              <Row>
-                <Label variant="caption">Last Name</Label>
-                <Input name="lastName" control={control} size="small" />
-              </Row>
-              <Row>
-                <Label variant="caption">Email</Label>
-                <Input name="email" control={control} size="small" />
-              </Row>
-              <Row>
-                <Label variant="caption">Age</Label>
-                <Input name="age" control={control} size="small" />
-              </Row>
-              <Row>
-                <Label variant="caption">Gender</Label>
-                <Select select name="gender" control={control} size="small">
-                  <MenuItem value="m">Male</MenuItem>
-                  <MenuItem value="f">Female</MenuItem>
-                </Select>
-              </Row>
-            </Stack>
-          </CardContent>
-          <CardActions>
-            <Button size="small" variant="outlined" onClick={handleReset}>
+        <Container>
+          <Row>
+            <Label>First Name</Label>
+            <Input name="firstName" control={control} />
+          </Row>
+          <Row>
+            <Label>Last Name</Label>
+            <Input name="lastName" control={control} />
+          </Row>
+          <Row>
+            <Label>Email</Label>
+            <Input name="email" control={control} />
+          </Row>
+          <Row>
+            <Label>Age</Label>
+            <Input name="age" control={control} />
+          </Row>
+          <Row>
+            <Label>Gender</Label>
+            <Select select name="gender" control={control}>
+              <MenuItem value="m">Male</MenuItem>
+              <MenuItem value="f">Female</MenuItem>
+            </Select>
+          </Row>
+          <Stack spacing={1} direction="row" display="flex" justifyContent="flex-end">
+            <Button variant="outlined" onClick={handleReset}>
               Reset
             </Button>
-            <Button size="small" onClick={submit}>
-              Apply
-            </Button>
-          </CardActions>
-        </Card>
+            <Button onClick={submit}>Apply</Button>
+          </Stack>
+        </Container>
       </Popover>
     </div>
   );

@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import apiClient from "@services/apiClient";
 import { Employee } from "src/types/employee";
-
+import queryString from "query-string";
+import { AppState } from "@redux/store";
 export interface EmployeeState {
   loading: boolean;
   list: Employee[];
@@ -26,20 +27,31 @@ const initialState: EmployeeState = {
     totalPages: 1,
   },
   filter: {
-    firstName: "",
-    lastName: "",
-    email: "",
+    firstName: null,
+    lastName: null,
+    email: null,
     age: null,
     gender: null,
   },
 };
 
-export const getEmployees = createAsyncThunk("employee/getEmployees", async (page: number) => {
-  const response = await apiClient("get", `/employee?page=${page}&limit=8`);
-  if (response.success) {
-    return response.data;
+export const getEmployees = createAsyncThunk(
+  "employee/getEmployees",
+  async (page: number, { getState, rejectWithValue }) => {
+    const {
+      employee: { filter },
+    } = getState() as AppState;
+
+    const filterParams = queryString.stringify(filter);
+
+    const response = await apiClient("get", `/employee?page=${page}&limit=8&${filterParams}`);
+    if (response.success) {
+      return response.data;
+    } else {
+      return rejectWithValue(response.data);
+    }
   }
-});
+);
 
 export const employeeSlice = createSlice({
   name: "employee",
@@ -62,6 +74,9 @@ export const employeeSlice = createSlice({
         state.loading = false;
         state.list = action.payload.employees;
         state.pagination = action.payload.pagination;
+      })
+      .addCase(getEmployees.rejected, (state) => {
+        state.loading = false;
       });
   },
 });
