@@ -4,7 +4,7 @@ import { ErrorType } from "../types";
 import ApiError from "../utils/ApiError";
 
 const errorHandler = (error: ErrorType, _request: Request, response: Response, _next: NextFunction): void => {
-  console.log(error);
+  console.log(error.message);
 
   if (error instanceof ApiError) {
     response.status(error.statusCode);

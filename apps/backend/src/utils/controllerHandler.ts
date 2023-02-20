@@ -4,7 +4,6 @@ export const controllerHandler = (fn: any) => (req: Request, res: Response, next
   Promise.resolve(fn(req, res, next))
     .then(() => {})
     .catch((err) => {
-      console.log(err);
       next(err);
     });
 };

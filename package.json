@@ -1,16 +1,13 @@
 {
   "name": "employee-management",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "workspaces": [
     "apps/*"
-   
   ],
   "scripts": {
-    "build": "turbo run build",
     "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "test": "turbo run test"
   },
   "devDependencies": {
     "eslint-config-custom": "*",

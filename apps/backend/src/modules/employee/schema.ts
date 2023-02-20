@@ -23,7 +23,10 @@ const updateEmployee = Joi.object({
   }),
   query: Joi.optional(),
   params: Joi.object({
-    id: Joi.string().required(),
+    id: Joi.string()
+      .regex(/^[0-9a-fA-F]{24}$/)
+      .required()
+      .messages({ "string.pattern.base": "Invalid employee id" }),
   }),
 });
 
@@ -31,7 +34,10 @@ const getEmployee = Joi.object({
   body: Joi.optional(),
   query: Joi.optional(),
   params: Joi.object({
-    id: Joi.string().required(),
+    id: Joi.string()
+      .regex(/^[0-9a-fA-F]{24}$/)
+      .required()
+      .messages({ "string.pattern.base": "Invalid employee id" }),
   }),
 });
 
@@ -55,7 +61,10 @@ const deleteEmployee = Joi.object({
   body: Joi.optional(),
   query: Joi.optional(),
   params: Joi.object({
-    id: Joi.string().required(),
+    id: Joi.string()
+      .regex(/^[0-9a-fA-F]{24}$/)
+      .required()
+      .messages({ "string.pattern.base": "Invalid employee id" }),
   }),
 });
 export default {
