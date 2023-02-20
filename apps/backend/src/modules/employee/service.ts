@@ -31,8 +31,7 @@ const getEmployeesWithPagination = async (query: any) => {
     sort: getSort(sort),
   };
   const filter = getFilter(query);
-  console.log(filter);
-  
+
   const { docs, totalPages, page: currentPage } = await EmployeeModel.paginate(filter, options);
 
   return {

@@ -42,22 +42,28 @@ const Employees = () => {
         onConfirm={() => handleDeleteEmployee(deleteId)}
         onClose={() => setDeleteId(null)}
       />
-      <div>
-        {listView ? (
-          <ListView onDelete={setDeleteId} employees={employees} />
-        ) : (
-          <GridView onDelete={setDeleteId} employees={employees} />
-        )}
-      </div>
-      <Footer>
-        <Pagination
-          size="large"
-          count={pagination.totalPages}
-          variant="outlined"
-          shape="rounded"
-          onChange={(_, page) => handleChangePage(page)}
-        />
-      </Footer>
+
+      {!loading ? (
+        <div>
+          {listView ? (
+            <ListView onDelete={setDeleteId} employees={employees} />
+          ) : (
+            <GridView onDelete={setDeleteId} employees={employees} />
+          )}
+          <Footer>
+            <Pagination
+              size="large"
+              count={pagination.totalPages}
+              variant="outlined"
+              shape="rounded"
+              onChange={(_, page) => handleChangePage(page)}
+              page={pagination.page}
+            />
+          </Footer>
+        </div>
+      ) : (
+        <div>loading</div>
+      )}
     </div>
   );
 };

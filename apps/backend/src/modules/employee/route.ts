@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post("/employee", validator(schema.addEmployee), employeeController.addEmployee);
 router.get("/employee/:id", validator(schema.getEmployee), employeeController.getEmployee);
-router.get("/employee", employeeController.getEmployeesWithPagination);
+router.get("/employee", validator(schema.getEmployees), employeeController.getEmployeesWithPagination);
 router.delete("/employee/:id", validator(schema.deleteEmployee), employeeController.deleteEmployee);
 router.put("/employee/:id", validator(schema.updateEmployee), employeeController.updateEmployee);
 

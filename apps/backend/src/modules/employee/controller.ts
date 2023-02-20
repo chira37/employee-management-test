@@ -6,7 +6,7 @@ import employeeService from "./service";
 
 const addEmployee = controllerHandler(async (req: Request, res: Response) => {
   const employee = await employeeService.addEmployee(req.body);
-  createResponse(res, "Create employee success", employee);
+  createResponse(res, "Add employee success", employee);
 });
 
 const updateEmployee = controllerHandler(async (req: Request, res: Response) => {

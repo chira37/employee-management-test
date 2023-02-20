@@ -6,7 +6,6 @@ const createJestConfig = nextJest({
 const customJestConfig = {
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   moduleNameMapper: {
-    // Handle module aliases (this will be automatically configured for you soon)
     "^@theme/(.*)$": "<rootDir>/src/theme/$1",
     "^@components/(.*)$": "<rootDir>/src/components/$1",
     "^@redux/(.*)$": "<rootDir>/src/redux/$1",

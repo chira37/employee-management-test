@@ -11,6 +11,9 @@ export const ToggleButton = styled(IconButton)`
   background-color: ${(props) => props.theme.palette.primary.main};
   color: #ffffff;
   margin-left: 15px;
+  :hover {
+    background-color: ${(props) => props.theme.palette.primary.dark};
+  }
 `;
 export const Footer = styled("div")`
   margin: 40px 0;
