@@ -11,10 +11,14 @@ const apiClient = async (method: string, url: string, data?: any) => {
       data,
     });
     return { ...result.data, success: true };
-  } catch (error) {
-    return {
-      success: false,
-    };
+  } catch (error: any) {
+    if (error?.response?.data) return error?.response?.data;
+    else {
+      return {
+        message: "Server Error",
+        success: false,
+      };
+    }
   }
 };
 
