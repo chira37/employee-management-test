@@ -9,7 +9,7 @@
 
 ### How to run
 
-To ru all apps, run the following command:
+To run all apps, run the following command:
 
 ```
 yarn
