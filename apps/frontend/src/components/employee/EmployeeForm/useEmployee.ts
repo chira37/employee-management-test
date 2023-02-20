@@ -25,6 +25,7 @@ export const useEmployee = (edit: boolean) => {
     if (response.success) {
       router.push("/employee/list");
     } else {
+      alert(response?.message);
     }
     setLoading(false);
   });

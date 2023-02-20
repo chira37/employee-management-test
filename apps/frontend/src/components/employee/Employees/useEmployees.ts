@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@redux/store";
-import { getEmployees } from "@redux/slices/employeeSlice";
+import { getEmployees, resetEmployeeView } from "@redux/slices/employeeSlice";
 import apiClient from "@services/apiClient";
 
 export const useEmployees = () => {
@@ -15,11 +15,17 @@ export const useEmployees = () => {
     const response = await apiClient("delete", `/employee/${id}`);
     if (response.success) {
       dispatch(getEmployees(1));
+    } else {
+      alert(response.message);
     }
   };
 
   useEffect(() => {
     dispatch(getEmployees(1));
+
+    return () => {
+      dispatch(resetEmployeeView());
+    };
   }, [dispatch]);
 
   return {

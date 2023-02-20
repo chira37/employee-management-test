@@ -1,7 +1,7 @@
 import { configureStore, createListenerMiddleware } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
-import employeeReducer, { getEmployees, resetFilter, setFilter } from "../slices/employeeSlice";
+import employeeReducer, { getEmployees, resetFilter, setFilter, setSort } from "../slices/employeeSlice";
 
 const filterMiddleware = createListenerMiddleware();
 filterMiddleware.startListening({
@@ -13,6 +13,13 @@ filterMiddleware.startListening({
 
 filterMiddleware.startListening({
   actionCreator: resetFilter,
+  effect: async (_, listenerApi) => {
+    listenerApi.dispatch(getEmployees(1));
+  },
+});
+
+filterMiddleware.startListening({
+  actionCreator: setSort,
   effect: async (_, listenerApi) => {
     listenerApi.dispatch(getEmployees(1));
   },

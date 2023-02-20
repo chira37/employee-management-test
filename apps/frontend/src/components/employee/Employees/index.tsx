@@ -6,13 +6,15 @@ import Button from "@components/common/Button";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import Stack from "@mui/material/Stack";
+import LinearProgress from "@mui/material/CircularProgress";
 
 import ConfirmDialog from "@components/common/ConfirmDialog";
 import GridView from "../GridView";
 import ListView from "../ListView";
 import { useEmployees } from "./useEmployees";
 import Filter from "../Filter";
-import { Footer, Header, ToggleButton } from "./styled";
+import { Content, Footer, Header, ToggleButton } from "./styled";
+import Sort from "../Sort";
 
 const Employees = () => {
   const [listView, setListView] = useState(false);
@@ -28,7 +30,10 @@ const Employees = () => {
   return (
     <div>
       <Header>
-        <Filter />
+        <Stack direction="row" spacing={2}>
+          <Filter />
+          <Sort />
+        </Stack>
         <Stack direction="row">
           <Button onClick={handleAddEmployee}>Add Employee</Button>
           <ToggleButton onClick={toggleListView}>{listView ? <ViewListIcon /> : <ViewModuleIcon />}</ToggleButton>
@@ -43,7 +48,14 @@ const Employees = () => {
         onClose={() => setDeleteId(null)}
       />
 
-      {!loading ? (
+      {loading && (
+        <Content>
+          <LinearProgress />
+        </Content>
+      )}
+
+      {!loading && employees.length === 0 && <Content>No employee found..</Content>}
+      {!loading && employees.length > 0 && (
         <div>
           {listView ? (
             <ListView onDelete={setDeleteId} employees={employees} />
@@ -61,8 +73,6 @@ const Employees = () => {
             />
           </Footer>
         </div>
-      ) : (
-        <div>loading</div>
       )}
     </div>
   );

@@ -48,7 +48,6 @@ const getEmployees = Joi.object({
     lastName: Joi.string().allow(""),
     email: Joi.string().allow(""),
     phone: Joi.string().allow(""),
-    age: Joi.number().allow(""),
     gender: Joi.string().valid("m", "f").allow(""),
     sort: Joi.string().allow(""),
     page: Joi.number().required(),

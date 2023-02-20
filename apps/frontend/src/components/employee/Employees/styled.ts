@@ -20,3 +20,12 @@ export const Footer = styled("div")`
   display: flex;
   justify-content: flex-end;
 `;
+
+export const Content = styled("div")`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 200px 100px;
+  font-size: 24px;
+  font-weight: bold;
+`;

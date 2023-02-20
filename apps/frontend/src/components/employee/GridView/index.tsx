@@ -12,7 +12,7 @@ const GridView = (props: GridViewProps) => {
   const router = useRouter();
   const handleEdit = (id: string) => router.push(`/employee/edit/${id}`);
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} >
       {employees.map((employee) => (
         <GridItem key={employee._id} onEdit={handleEdit} onDelete={onDelete} employee={employee} />
       ))}

@@ -47,10 +47,10 @@ const GridItem = (props: GridItemProps) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <IconButton onClick={() => onEdit(employee._id)}>
+          <IconButton onClick={() => onEdit(employee._id)} color="success">
             <EditIcon />
           </IconButton>
-          <IconButton onClick={() => onDelete(employee._id)}>
+          <IconButton onClick={() => onDelete(employee._id)} color="error">
             <DeleteIcon />
           </IconButton>
         </CardActions>

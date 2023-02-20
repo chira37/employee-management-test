@@ -55,7 +55,7 @@ const ListView = (props: ListViewProps) => {
               <TableCell align="left">{employee.phone}</TableCell>
               <TableCell align="left"> {employee.gender === "m" ? "Male" : "Female"}</TableCell>
               <TableCell align="right">
-                <IconButton onClick={() => handleEdit(employee._id)}>
+                <IconButton onClick={() => handleEdit(employee._id)} color="success">
                   <EditIcon fontSize="small" />
                 </IconButton>
                 <IconButton color="error" onClick={() => onDelete(employee._id)}>

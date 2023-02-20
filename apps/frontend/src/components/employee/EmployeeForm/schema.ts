@@ -3,11 +3,13 @@ import * as yup from "yup";
 export const employeeSchema = yup.object({
   firstName: yup
     .string()
+    .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed")
     .min(6, "First Name must be at least 6 characters")
     .max(10, "First Name must be at most 10 characters")
     .required("First Name is required"),
   lastName: yup
     .string()
+    .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed")
     .min(6, "First Name must be at least 6 characters")
     .max(10, "First Name must be at most 10 characters")
     .required("Last Name is required"),

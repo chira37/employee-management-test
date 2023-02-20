@@ -52,7 +52,7 @@ const Filter = () => {
         Filter
       </Button>
       <Popover
-        id={"sort"}
+        id="filter"
         open={!!anchorEl}
         anchorEl={anchorEl}
         onClose={handleClose}
@@ -76,8 +76,8 @@ const Filter = () => {
             <Input name="email" control={control} />
           </Row>
           <Row>
-            <Label>Age</Label>
-            <Input name="age" control={control} />
+            <Label>Phone</Label>
+            <Input name="phone" control={control} />
           </Row>
           <Row>
             <Label>Gender</Label>

@@ -14,13 +14,15 @@ export interface EmployeeState {
     firstName: string | null;
     lastName: string | null;
     email: string | null;
-    age: number | null;
+    phone: string | null;
     gender: "m" | "f" | null;
   };
+
+  sort: string | null;
 }
 
 const initialState: EmployeeState = {
-  loading: false,
+  loading: true,
   list: [],
   pagination: {
     page: 1,
@@ -30,21 +32,22 @@ const initialState: EmployeeState = {
     firstName: null,
     lastName: null,
     email: null,
-    age: null,
+    phone: null,
     gender: null,
   },
+  sort: null,
 };
 
 export const getEmployees = createAsyncThunk(
   "employee/getEmployees",
   async (page: number, { getState, rejectWithValue }) => {
     const {
-      employee: { filter },
+      employee: { filter, sort },
     } = getState() as AppState;
 
-    const filterParams = queryString.stringify(filter);
+    const query = queryString.stringify({ ...filter, sort, page, limit: 8 });
 
-    const response = await apiClient("get", `/employee?page=${page}&limit=8&${filterParams}`);
+    const response = await apiClient("get", `/employee?${query}`);
     if (response.success) {
       return response.data;
     } else {
@@ -62,6 +65,14 @@ export const employeeSlice = createSlice({
     },
     resetFilter: (state) => {
       state.filter = initialState.filter;
+    },
+
+    setSort: (state, action) => {
+      state.sort = action.payload;
+    },
+
+    resetEmployeeView: () => {
+      return { ...initialState };
     },
   },
 
@@ -81,6 +92,6 @@ export const employeeSlice = createSlice({
   },
 });
 
-export const { setFilter, resetFilter } = employeeSlice.actions;
+export const { setFilter, resetFilter, setSort, resetEmployeeView } = employeeSlice.actions;
 
 export default employeeSlice.reducer;
